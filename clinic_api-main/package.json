@@ -1,0 +1,22 @@
+{
+  "name": "clinic_api",
+  "version": "1.0.0",
+  "description": "API for students development clinic project",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.13.0",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "start": "^5.1.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.13.0"
+  }
+}
