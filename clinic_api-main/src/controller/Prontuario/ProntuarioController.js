@@ -5,7 +5,7 @@ class ProntuarioController {
     async getTodosOsProntuarios(_, res) {
         try {
         const prontuarios = await prismaClient.prontuario.findMany();
-        return response.json(prontuarios)
+        return res.json(prontuarios)
     }
     catch (e) {
         console.log(e)
@@ -16,11 +16,11 @@ class ProntuarioController {
         try {
         const prontuarios = await prismaClient.prontuario.findUnique({
             where: {
-                id: Number(request.params.id)
+                id: Number(req.params.id)
             }
         })
         if (!prontuarios) return response.status(404).send("Prontuario não existe!")
-        return response.json(prontuarios)
+        return res.json(prontuarios)
     }
     catch (e) {
         console.log(e)
