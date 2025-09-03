@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:senai@127.0.0.1:3306/clinicadb"
+  url      = "mysql://root:prince@127.0.0.1:3306/clinicabd"
 }
 
 // Tabela usuario

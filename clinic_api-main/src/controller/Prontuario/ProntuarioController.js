@@ -1,19 +1,19 @@
-import { prismaClient } from "../prisma/prisma.js";
+import { prismaClient } from "../../../prisma/prisma.js";
 
-export const prontuarioRouter = Router();
-// Prontuario
-prontuarioRouter.get('/prontuarios', async (_, response) => {
-    try {
+class ProntuarioController {
+    constructor() { }
+    async getTodosOsProntuarios(_, res) {
+        try {
         const prontuarios = await prismaClient.prontuario.findMany();
         return response.json(prontuarios)
     }
     catch (e) {
         console.log(e)
     }
-});
+};
 
-prontuarioRouter.get("/prontuarios/:id", async (request, response) => {
-    try {
+    async getProntuarioPorId(req, res) {
+        try {
         const prontuarios = await prismaClient.prontuario.findUnique({
             where: {
                 id: Number(request.params.id)
@@ -25,10 +25,10 @@ prontuarioRouter.get("/prontuarios/:id", async (request, response) => {
     catch (e) {
         console.log(e)
     }
-})
+};
 
-prontuarioRouter.post("/prontuarios", async (req, res) => {
-    try {
+    async criarProntuario(req, res) {
+        try {
         const { body } = req
         const bodyKeys = Object.keys(body)
         for (const key of bodyKeys) {
@@ -47,14 +47,10 @@ prontuarioRouter.post("/prontuarios", async (req, res) => {
         return res.status(201).json(prontuarios)
     } catch (error) {
         console.error(error)
-        if (error.code === "P2002") {
-            res.status(404).send("Falha ao cadastrar paciente: Email já cadastrado!")
-        }
     }
-})
-
-prontuarioRouter.put("/prontuarios/:id", async (req, res) => {
-    try {
+};
+    async atualizarProntuario(req, res) {
+         try {
         const { body, params } = req
         const bodyKeys = Object.keys(body)
         for (const key of bodyKeys) {
@@ -83,30 +79,29 @@ prontuarioRouter.put("/prontuarios/:id", async (req, res) => {
 
     } catch (error) {
         if (error.code == "P2025") {
-            res.status(404).send("Usuário não existe no banco")
-        }
-
-        if (error.code === "P2002") {
-            res.status(404).send("Falha ao cadastrar usuário: Email já cadastrado!")
+            res.status(404).send("Prontuario não existe no banco")
         }
     }
-})
-
-prontuarioRouter.delete("/prontuarios/:id", async (req, res) => {
-    const { params } = req
-    try {
+};
+    async deletarProntuario(req, res) {
+        const { params } = req
+        try {
         const prontuarioDeletado = await prismaClient.prontuario.delete({
             where: {
                 id: Number(params.id),
             },
         })
         res.status(200).json({
-            message: "Exame deletado!",
+            message: "Prontuario deletado!",
             data: prontuarioDeletado
         })
     } catch (error) {
         if (error.code == "P2025") {
-            res.status(404).send("Paciente não existe no banco")
+            res.status(404).send("Prontuario não existe no banco")
         }
     }
-})
+}
+};
+
+
+export const prontuarioController = new ProntuarioController();

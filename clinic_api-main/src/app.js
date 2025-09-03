@@ -1,17 +1,17 @@
 import express from 'express';
-import { usuarioRouter } from './usuarios.js';
-import { exameRouter } from './exame.js';
-import { pacientesRouter } from './pacientes.js';
-import { prontuarioRouter } from './prontuario.js';
-import { consultasRouter } from './consulta.js';
+import {usuarioRouter} from './routes/usuarios.js'
+import {pacientesRouter} from './routes/pacientes.js'
+import {consultasRouter} from './routes/consulta.js'
+import {prontuarioRouter} from './routes/prontuario.js'
+import {exameRouter} from './routes/exame.js'
 
-export const app = express()
+const app = express()
 app.use(express.json())
 
 // rotas usuario
 app.use(usuarioRouter);
 
-// rotas exames
+ // rotas exames
 app.use(exameRouter);
 
 // rotas pacientes
